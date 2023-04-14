@@ -2,13 +2,13 @@ require 'challenge'
 
 describe GrammarStats do
   context "multiple checks run" do
-    it "returns the total ammount of values in the array after multiple checks" do
+    it "returns the percentage of tests checked that passed the check method" do
       gram = GrammarStats.new
       gram.check("False")
       gram.check("false.")
       gram.check("True!")
       gram.check("True?")
-      expect(gram.percentage_good).to eq 4
+      expect(gram.percentage_good).to eq 50
     end
   end
 
@@ -21,13 +21,27 @@ describe GrammarStats do
       expect { gram.check(12) }.to raise_error "Not a valid input"
     end
   end
-      
-  context 'percentage ran after multiple failed checks' do
-    it 'Should return 0 when checks failed' do
-      gram = GrammarStats.new 
-      gram.check(nil)
-      gram.check("True")
-      expect(gram.percentage_good).to eq 1
+
+  context "Passed 3 values" do
+    it "returns the correct %" do
+      gram = GrammarStats.new
+      gram.check("False")
+      gram.check("false.")
+      gram.check("True.")
+      expect(gram.percentage_good).to eq 33
+    end
+  end
+
+  context "Passed 6 values, 4 false and 2 true" do
+    it "returns the correct %" do
+      gram = GrammarStats.new
+      gram.check("False")
+      gram.check("Falsel")
+      gram.check("True.")
+      gram.check("True.")
+      gram.check("True.")
+      gram.check("True.")
+      expect(gram.percentage_good).to eq 67
     end
   end
 end
