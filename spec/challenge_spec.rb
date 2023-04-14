@@ -1,9 +1,14 @@
 require 'challenge'
 
 describe GrammarStats do
-  it 'Should check if the text passed begins with a capital letter' do
-    gram = GrammarStats.new
-    expect(gram.check("True")).to eq true
-    expect(gram.check("true")).to eq false
+  context "multiple checks run" do
+    it "returns an array of strings checked" do
+      gram = GrammarStats.new
+      gram.check("False")
+      gram.check("false.")
+      gram.check("True!")
+      gram.check("True?")
+      expect(gram.percentage_good).to eq 4
+    end
   end
 end
